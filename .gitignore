@@ -1,0 +1,4 @@
+*.rdb
+venv/*
+*.pyc
+config.py

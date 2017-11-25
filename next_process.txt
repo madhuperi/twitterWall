@@ -1,0 +1,13 @@
+This is the wall...
+Now two things. 
+
+You need to make it look good. 
+And make it run on #fossasia. 
+You can post this on group and ask for suggestions lets see what sudheesh wants to tell. share the problem that the app is
+running on 0.0.0.5000 but flask runs on localhost:5000/.
+
+Now tweet about it :) people should know also check sushmas tweets if u want to know how to mention them
+chalo bye if any doubt ask in the group someone will see and reply
+ok akka sure ill do it! thank you :)
+and sorry to distrub u knowing u were out
+no issues bye

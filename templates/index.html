@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Loklak Twitter Wall</title>
+		<meta name="description" content="Loklak Twitter Wall" />
+		<meta name="keywords" content="Loklak twitter wall" />
+		<meta name="author" content="twitterWall" />
+		<link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.png')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/demo.css')}}" />
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/component.css')}}" />
+		<script src="{{url_for('static', filename='js/modernizr.custom.js')}}"></script>
+    <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	</head>
+
+	<body background = "background-image-ourtrack1.jpeg" onload="getTweets()">
+		<div class="container">
+			<div id="grid-gallery" class="grid-gallery">
+        <section class="grid-wrap">
+          <ul class="grid">
+            <li class="grid-sizer"></li><!-- for Masonry column width -->
+          </ul>
+        </section>
+        <section class="slideshow">
+        <ul class="slides">
+          
+        </ul>
+          <nav>
+            <span class="icon nav-prev"></span>
+            <span class="icon nav-next"></span>
+            <span class="icon nav-close"></span>
+          </nav>
+            <div class="info-keys icon">Navigate with arrow keys</div>
+          </section>
+			</div>
+		</div>
+		<script src="{{url_for('static', filename='js/imagesloaded.pkgd.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/masonry.pkgd.min.js')}}"></script>
+		<script src="{{url_for('static', filename='js/classie.js')}}"></script>
+		<script src="{{url_for('static', filename='js/cbpGridGallery.js')}}"></script>
+    <script>
+      function getTweets() {
+        $.ajax({
+          url: "{{BASE_URL}}/ajax/wall/{{name}}", // I put the default_wall value there because {{name}} needs a value
+          dataType: "json",
+          async: false,
+          success: function (data) {
+            console.log(data);
+            var gridConstruct = "";
+            var slideShowConstruct = "";
+            var tweets = data.statuses;
+            for (var i=0; i<tweets.length; i++) {
+              gridConstruct += "<li>";
+              gridConstruct += "<figure>";
+              gridConstruct += "<img src=\""+tweets[i].user.profile_image_url_https+"\" alt=\""+tweets[i].user.screen_name+"\"/>";
+              gridConstruct += "<figcaption><h3>" + tweets[i].text + "</h3></figcaption>";
+              gridConstruct += "</figure>";
+              gridConstruct += "</li>";
+              // grid and slideshow seperately
+              slideShowConstruct += "<li>";
+              slideShowConstruct += "<figure>";
+              slideShowConstruct += "<figcaption>";
+              slideShowConstruct += "<h3>" + tweets[i].user.screen_name + "</h3>";
+              slideShowConstruct += "<p>"+tweets[i].text+"</p>";
+              slideShowConstruct += "</figcaption>";
+              slideShowConstruct += "<img src=\""+tweets[i].user.profile_image_url_https+"\" alt=\""+tweets[i].user.screen_name+"\"/>";
+              slideShowConstruct += "</figure>";
+              slideShowConstruct += "</li>";
+            }
+            
+            $('.grid').append(gridConstruct);
+            $('.slides').append(slideShowConstruct);
+          }
+        });
+        new CBPGridGallery( document.getElementById( 'grid-gallery' ) );
+      }
+      setInterval( getTweets, 30000 );
+    </script>
+    <script>
+      new CBPGridGallery( document.getElementById( 'grid-gallery' ) );
+    </script>
+		
+	</body>
+</html>
