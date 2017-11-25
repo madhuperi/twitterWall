@@ -1,3 +1,2 @@
-# loklak-wall
-
-Contains different templates for tweet walls
+# twitterWall
+Contains different tweets in a tweet wall
